@@ -4,23 +4,30 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { AuthGuard } from './_helpers/auth.guard';
 
+const accountModule = () => import('./account/account.module').then(x => x.AccountModule);
 const routes: Routes =[
   {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
-  }, {
+   canActivate: [AuthGuard]
+  },
+  { path: 'account', loadChildren: accountModule },
+
+  {
     path: '',
     component: AdminLayoutComponent,
     children: [
         {
       path: '',
-      loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
+      loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule',
+      canActivate: [AuthGuard]
   }]},
   {
     path: '**',
-    redirectTo: 'dashboard'
+    redirectTo: ''
   }
 ];
 

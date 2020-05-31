@@ -63,9 +63,9 @@
               </ul>
         </li>
         <li *ngIf="isMobileMenu()">
-            <a>
-                <p>Log out</p>
-            </a>
+            <button  (click)="logout()">
+                <p>Keluar</p>
+            </button>
         </li>
         <li class="separator hidden-lg hidden-md" *ngIf="isMobileMenu()"></li>
         <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}}">
